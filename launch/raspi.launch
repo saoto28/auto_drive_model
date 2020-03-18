@@ -1,7 +1,6 @@
 <launch>
-<!-- <arg name="ns_name" default="adt_car2"/> -->
-<!-- <group ns="$(arg ns_name)"> -->
-  <include file="$(find adt)/launch/lidar.launch" />
+  <include file="$(find rplidar_ros)/launch/rplidar.launch" />
+
   <node pkg="rosserial_python" name="serial_node" type="serial_node.py"
     args="_port:=/dev/ttyACM0" />
     <!-- args="/cmd_vel:=/navigation_velocity_smoother/raw_cmd_vel" -->
