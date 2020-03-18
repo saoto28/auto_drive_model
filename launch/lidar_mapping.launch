@@ -1,0 +1,35 @@
+<!-- mapping launch file -->
+<!-- 2020-03-18 saoto-tech -->
+
+<launch>
+  <arg name="open_rviz" default="true"/>
+
+  <!-- <include file="$(find ats)/launch/static_transform.launch" /> -->
+  <node pkg="tf" type="static_transform_publisher" name="odom2base" args="0 0 0 0 0 0 /odom /base_footprint 100"/>
+  <!-- <node pkg="tf" type="static_transform_publisher" name="base2laser" args="0 0 0 0 0 3.141592 /base_footprint /laser 100"/> -->
+  <node pkg="tf" type="static_transform_publisher" name="base2laser" args="0 0 0 3.141592 0 0 /base_footprint /laser 100"/>
+
+
+  <!-- gmapping -->
+  <!-- <arg name="scan_topic"     default="scan"/>
+  <arg name="odom_topic"    default="/odom"/>
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+    <param name="base_frame" value="base_footprint"/>
+    <param name="odom_frame" value="odom"/>
+    <param name="maxUrange" value="10.0"/>
+    <param name="maxRange" value="10.0"/>
+    <param name="xmin" value="-10"/>
+    <param name="ymin" value="-10"/>
+    <param name="xmax" value="10"/>
+    <param name="ymax" value="10"/>
+  </node> -->
+
+  <!-- <include file="$(find hector_mapping)/launch/mapping_default.launch" /> -->
+  <include file="$(find auto_drive_model)/launch/hector_mapping.launch" />
+
+  <!-- rviz -->
+  <group if="$(arg open_rviz)">
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find auto_drive_model)/rviz/lidar_mapping.rviz"/>
+  </group>
+</launch>

@@ -1,0 +1,21 @@
+<launch>
+<!-- <arg name="ns_name" default="adt_car2"/> -->
+<!-- <group ns="$(arg ns_name)"> -->
+  <include file="$(find adt)/launch/lidar.launch" />
+  <node pkg="rosserial_python" name="serial_node" type="serial_node.py"
+    args="_port:=/dev/ttyACM0" />
+    <!-- args="/cmd_vel:=/navigation_velocity_smoother/raw_cmd_vel" -->
+
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_LiDAR" args="0.25 0.0 0.12 -0.05 0.0 0.0 /base_link /laser_frame 100" />
+
+  <!--  ***************** publish odometry **************** -->
+  <!-- <node pkg="adt" type="adt_odom.py" name="adt_odom"/> -->
+
+  <!--  ***************** laser_scan_matcher **************** -->
+  <include file="$(find adt)/launch/laser_odometory.launch" />
+
+  <!--  ***************** amcl **************** -->
+  <include file="$(find adt)/launch/amcl.launch" />
+
+  <!-- </group> -->
+</launch>
