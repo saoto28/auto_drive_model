@@ -9,13 +9,13 @@
 
 
   <!--  ***************** publish odometry **************** -->
-  <!-- <node pkg="adt" type="adt_odom.py" name="adt_odom"/> -->
+  <!-- <node pkg="auto_drive_model" type="adt_odom.py" name="adt_odom"/> -->
 
   <!--  ***************** laser_scan_matcher **************** -->
   <include file="$(find auto_drive_model)/launch/laser_odometory.launch" />
 
   <!--  ***************** amcl **************** -->
-  <!--include file="$(find auto_drive_model)/launch/amcl.launch" /-->
+  <include file="$(find auto_drive_model)/launch/amcl.launch" />
 
   <!-- </group> -->
 </launch>
