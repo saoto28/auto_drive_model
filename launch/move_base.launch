@@ -1,0 +1,16 @@
+<launch>
+
+<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+  <rosparam file="$(find auto_drive_model)/costmaps/costmap_common_params.yaml" command="load" ns="global_costmap" />
+  <rosparam file="$(find auto_drive_model)/costmaps/costmap_common_params.yaml" command="load" ns="local_costmap" />
+  <rosparam file="$(find auto_drive_model)/costmaps/local_costmap_params.yaml" command="load" />
+  <rosparam file="$(find auto_drive_model)/costmaps/global_costmap_params.yaml" command="load" />
+  <param name="controller_frequency" value="10.0" />
+
+  <!-- <rosparam file="$(find auto_drive_model)/costmaps/teb_local_planner_params.yaml" command="load" />
+  <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" /> -->
+
+  <!-- for multiple trailer -->
+  <!-- <remap from="map" to="/map" /> -->
+</node>
+</launch>

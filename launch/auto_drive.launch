@@ -1,0 +1,26 @@
+<launch>
+<!--  ***************** map server **************** -->
+<arg name="map_file"	default=" $(find auto_drive_model)/maps/map.yaml"/>　
+
+<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)">
+  <param name="frame_id" value="map"/>
+</node>
+
+<param name="odom_frame" value="odom"/>
+
+<!--  ***************** mave_base **************** -->
+<include file="$(find auto_drive_model)/launch/move_base.launch" />
+
+<!--  ***************** trailer model **************** -->
+<param name="robot_description" textfile="$(find auto_drive_model)/model/tractor.urdf" />
+<!--<param name="use_gui" value="true"/>-->
+<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+<!-- <node pkg="adt" type="pub_trailer_joint.py" name="pub_trailer_joint"/> -->
+
+  <!--  **************** Visualisation ****************  -->
+  <!-- <node name="rviz" pkg="rviz" type="rviz" /> -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find auto_drive_model)/rviz/robot_navigation.rviz"/>
+
+</launch>
